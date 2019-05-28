@@ -27,6 +27,7 @@ class RemoteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'remote-control');
+        $this->mergeConfigFrom(__DIR__.'/../config/remote-control.php', 'remote-control');
 
         if ($this->app->runningInConsole()) {
             $this->registerMigrations();
