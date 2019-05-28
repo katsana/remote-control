@@ -50,7 +50,6 @@ interface AccessToken
      */
     public function authenticate(StatefulGuard $guard);
 
-
     /**
      * Get URL.
      *
