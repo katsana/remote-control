@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
 
-class CreateRemoteAccessTest extends TestCase
+class RemoteAccessTest extends TestCase
 {
     use WithLaravelMigrations;
 

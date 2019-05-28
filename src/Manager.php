@@ -4,7 +4,6 @@ namespace RemoteControl;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 
@@ -95,7 +94,7 @@ class Manager implements Contracts\Factory
      * Create routes for remote control.
      *
      * @param string $uri
-     * @param array $middleware
+     * @param array  $middleware
      *
      * @return void
      */

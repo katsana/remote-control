@@ -64,8 +64,8 @@ class AccessToken implements Contracts\AccessToken
     /**
      * Get token URL.
      *
-     * @param  \DateTimeInterface|\DateInterval|int  $expiration
-     * @param  bool  $absolute
+     * @param \DateTimeInterface|\DateInterval|int $expiration
+     * @param bool                                 $absolute
      *
      * @return string
      */
