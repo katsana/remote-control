@@ -60,6 +60,22 @@ class RemoteAccessTest extends TestCase
     /** @test */
     public function it_can_authenticate_remote_access_via_http_request()
     {
+        Remote::route('test', ['web']);
+
+        $user = factory(User::class)->create();
+
+        $accessToken = Remote::create($user, 'crynobone@katsana.com');
+
+        $this->assertGuest();
+
+        $this->call('GET', $accessToken->getUrl(false))->assertRedirect('/');
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /** @test */
+    public function it_can_authenticate_remote_access_via_signed_http_request()
+    {
         Remote::route('test');
 
         $user = factory(User::class)->create();
@@ -68,8 +84,7 @@ class RemoteAccessTest extends TestCase
 
         $this->assertGuest();
 
-        $this->call('GET', $accessToken->getUrl(false))
-            ->assertRedirect('/');
+        $this->call('GET', $accessToken->getSignedUrl(false))->assertRedirect('/');
 
         $this->assertAuthenticatedAs($user);
     }

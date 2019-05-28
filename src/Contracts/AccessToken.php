@@ -49,4 +49,24 @@ interface AccessToken
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */
     public function authenticate(StatefulGuard $guard);
+
+
+    /**
+     * Get URL.
+     *
+     * @param bool $absolute
+     *
+     * @return string
+     */
+    public function getUrl(bool $absolute = true): string;
+
+    /**
+     * Get signed URL.
+     *
+     * @param \DateTimeInterface|\DateInterval|int $expiration
+     * @param bool                                 $absolute
+     *
+     * @return string
+     */
+    public function getSignedUrl($expiration = null, bool $absolute = true): string;
 }

@@ -54,7 +54,7 @@ class GrantRemoteAccess extends Mailable
     {
         return $this->markdown('remote-control::grant-remote-access', [
             'user' => $this->user,
-            'url' => $this->accessToken->getUrl(),
+            'url' => $this->accessToken->getSignedUrl(),
             'content' => $this->content,
         ]);
     }

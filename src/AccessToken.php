@@ -62,14 +62,30 @@ class AccessToken implements Contracts\AccessToken
     }
 
     /**
-     * Get token URL.
+     * Get URL.
+     *
+     * @param bool $absolute
+     *
+     * @return string
+     */
+    public function getUrl(bool $absolute = true): string
+    {
+        return \route('remote-control.verify', [
+            'secret' => $this->getSecret(),
+            'verification_code' => $this->getVerificationCode(),
+            'email' => $this->getEmail(),
+        ], $absolute);
+    }
+
+    /**
+     * Get signed URL.
      *
      * @param \DateTimeInterface|\DateInterval|int $expiration
      * @param bool                                 $absolute
      *
      * @return string
      */
-    public function getUrl($expiration = null, bool $absolute = true): string
+    public function getSignedUrl($expiration = null, bool $absolute = true): string
     {
         return \app('url')->signedRoute('remote-control.verify', [
             'secret' => $this->getSecret(),
