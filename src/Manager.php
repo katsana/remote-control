@@ -4,10 +4,10 @@ namespace RemoteControl;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Mail\Mailable as MailableContract;
+use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Support\Str;
 
-class Manager
+class Manager implements Contracts\Factory
 {
     /**
      * The application instance.
@@ -44,7 +44,7 @@ class Manager
      *
      * @return \Illuminate\Contracts\Mail\Mailable
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): MailableContract
+    public function create(Authenticatable $user, string $email, string $message = ''): Mailable
     {
         $accessToken = $this->createTokenRepository()->create(
             $user, $email, $message

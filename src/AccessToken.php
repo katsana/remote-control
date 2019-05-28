@@ -27,6 +27,13 @@ class AccessToken implements Contracts\Token
      */
     protected $userId;
 
+    /**
+     * Construct new access token.
+     *
+     * @param string          $secret
+     * @param string          $verificationCode
+     * @param int|string|null $userId
+     */
     public function __construct(string $secret, string $verificationCode, $userId)
     {
         $this->secret = $secret;

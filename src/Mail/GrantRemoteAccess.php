@@ -2,9 +2,9 @@
 
 namespace RemoteControl\Mail;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Mail\Mailable;
 use RemoteControl\Contracts\AccessToken;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class GrantRemoteAccess extends Mailable
 {
