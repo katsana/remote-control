@@ -16,13 +16,14 @@ class CreateUserRemoteControlsTable extends Migration
         Schema::create('user_remote_controls', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable()->index();
 
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('secret');
             $table->string('verification_code');
 
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
+            $table->timestamp('used_at')->nullable();
         });
     }
 

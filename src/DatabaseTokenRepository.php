@@ -47,7 +47,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      * @param \Illuminate\Contracts\Hashing\Hasher     $hasher
      * @param string                                   $table
      * @param string                                   $hashKey
-     * @param int                                      $expires
      *
      * @return void
      */
@@ -55,13 +54,11 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
         ConnectionInterface $connection,
         HasherContract $hasher,
         string $table,
-        string $hashKey,
-        int $expires = 60
+        string $hashKey
     ) {
         $this->table = $table;
         $this->hasher = $hasher;
         $this->hashKey = $hashKey;
-        $this->expires = $expires * 60;
         $this->connection = $connection;
     }
 
@@ -129,30 +126,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     }
 
     /**
-     * Delete a token record.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     *
-     * @return void
-     */
-    public function delete(Authenticatable $user): void
-    {
-        $this->deleteExisting($user);
-    }
-
-    /**
-     * Delete expired tokens.
-     *
-     * @return void
-     */
-    public function deleteExpired(): void
-    {
-        $expiredAt = Carbon::now()->subSeconds($this->expires);
-
-        $this->getTable()->where('created_at', '<', $expiredAt)->delete();
-    }
-
-    /**
      * Build the record payload for the table.
      *
      * @param string $email
@@ -161,9 +134,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      *
      * @return array
      */
-    protected function getPayload(string $email, string $secret, string $verificationCode): array
+    protected function getPayload(Authenticatable $user, string $email, string $secret, string $verificationCode): array
     {
         return [
+            'user_id' => $user->getKey(),
             'email' => $email,
             'secret' => $this->hasher->make($secret),
             'verification_code' => $verificationCode,
@@ -192,18 +166,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     }
 
     /**
-     * Delete all existing reset tokens from the database.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     *
-     * @return int
-     */
-    protected function deleteExisting(CanResetPasswordContract $user): void
-    {
-        $this->getTable()->where('user_id', $user->getKey())->delete();
-    }
-
-    /**
      * Begin a new database query against the table.
      *
      * @return \Illuminate\Database\Query\Builder
@@ -211,17 +173,5 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     protected function getTable(): QueryBuilder
     {
         return $this->connection->table($this->table);
-    }
-
-    /**
-     * Determine if the token has expired.
-     *
-     * @param string $createdAt
-     *
-     * @return bool
-     */
-    protected function tokenExpired(string $createdAt): bool
-    {
-        return Carbon::parse($createdAt)->addSeconds($this->expires)->isPast();
     }
 }

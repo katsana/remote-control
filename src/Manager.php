@@ -108,11 +108,10 @@ class Manager implements Contracts\Factory
         }
 
         return new DatabaseTokenRepository(
-            $this->app['db']->connection($this->config['connection'] ?? null),
+            $this->app['db']->connection($this->config['database']['connection'] ?? null),
             $this->app['hash'],
-            $this->config['table'],
-            $key,
-            $this->config['expire']
+            $this->config['database']['table'] ?? 'user_remote_controls',
+            $key
         );
     }
 }

@@ -37,20 +37,4 @@ interface TokenRepository
      * @return bool
      */
     public function exists(string $email, string $secret, string $verificationCode): bool;
-
-    /**
-     * Delete a token record.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     *
-     * @return void
-     */
-    public function delete(Authenticatable $user): void;
-
-    /**
-     * Delete expired tokens.
-     *
-     * @return void
-     */
-    public function deleteExpired(): void;
 }
