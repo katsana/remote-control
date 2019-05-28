@@ -35,6 +35,13 @@ interface AccessToken
     public function getUserId();
 
     /**
+     * Get recipient e-mail address.
+     *
+     * @return string
+     */
+    public function getEmail(): string;
+
+    /**
      * Authenticate the user.
      *
      * @param \Illuminate\Contracts\Auth\StatefulGuard $guard

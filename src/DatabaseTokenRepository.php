@@ -80,9 +80,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
 
         $recordId = $this->getTable()->insertGetId($this->getPayload($user, $email, $secret, $verificationCode));
 
-        return new AccessToken($secret, $verificationCode, [
+        return new AccessToken($email, $secret, $verificationCode, [
             'id' => $recordId,
             'user_id' => $user->getKey(),
+            'email' => $email,
         ]);
     }
 
@@ -120,9 +121,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
                         ->first();
 
         if (! \is_null($record) && $this->hasher->check($secret, $record->secret)) {
-            return new AccessToken($secret, $verificationCode, [
+            return new AccessToken($email, $secret, $verificationCode, [
                 'id' => $record->id,
                 'user_id' => $record->user_id,
+                'email' => $email,
             ]);
         }
 

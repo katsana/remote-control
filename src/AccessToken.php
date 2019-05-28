@@ -62,6 +62,20 @@ class AccessToken implements Contracts\AccessToken
     }
 
     /**
+     * Get token URL.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return \app('url')->signedRoute('remote-control.verify', [
+            'secret' => $this->getSecret(),
+            'verification_code' => $this->getVerificationCode(),
+            'email' => $this->getEmail(),
+        ]);
+    }
+
+    /**
      * Get record id.
      *
      * @return int|null
@@ -79,6 +93,16 @@ class AccessToken implements Contracts\AccessToken
     public function getUserId()
     {
         return $this->record['user_id'];
+    }
+
+    /**
+     * Get recipient e-mail address.
+     *
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->record['email'];
     }
 
     /**
