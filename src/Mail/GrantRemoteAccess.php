@@ -40,8 +40,9 @@ class GrantRemoteAccess extends Mailable
     {
         $this->user = $user;
         $this->accessToken = $accessToken;
-        $this->to[] = $accessToken->getEmail();
         $this->content = $content;
+
+        $this->to($accessToken->getEmail());
     }
 
     /**
