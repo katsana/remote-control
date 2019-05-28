@@ -32,9 +32,9 @@ interface Factory
     /**
      * Create routes for remote control.
      *
-     * @param string $uri
+     * @param string $prefix
      *
-     * @return \Illuminate\Routing\Route
+     * @return void
      */
-    public function route(string $uri);
+    public function route(string $prefix): void;
 }

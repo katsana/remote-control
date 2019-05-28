@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method \Illuminate\Contracts\Mail\Mailable create(\Illuminate\Contracts\Auth\Authenticatable $user, string $email, string $message = '')
  * @method bool authenticate(string $email, string $secret, string $verificationCode)
+ * @method void route(string $prefix)
  *
  * @see \RemoteControl\Manager
  */

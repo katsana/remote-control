@@ -5,6 +5,7 @@ namespace RemoteControl;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Mail\Mailable;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Str;
 
 class Manager implements Contracts\Factory
@@ -100,13 +101,18 @@ class Manager implements Contracts\Factory
      *
      * @param string $uri
      *
-     * @return \Illuminate\Routing\Route
+     * @return void
      */
-    public function route(string $uri)
+    public function route(string $prefix): void
     {
-        return $this->app['router']->get($uri, Http\VerifyController::class)
+        $prefix = rtrim($prefix, '/');
+        $router = $this->app['router'];
+
+        $router->prefix($prefix)->group(function (Router $router) {
+            $router->get('{secret}', Http\VerifyController::class)
                     ->name('remote-control.verify')
                     ->middleware('signed');
+        });
     }
 
     /**

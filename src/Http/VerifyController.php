@@ -26,6 +26,18 @@ class VerifyController extends Controller
 
         \abort_if(! $remote, 404);
 
-        return \redirect(\config('remote-control.redirect', '/'));
+        return $this->sendLoginResponse($request);
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return mixed
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        return \redirect('/');
     }
 }
