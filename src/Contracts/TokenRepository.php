@@ -28,17 +28,6 @@ interface TokenRepository
     public function query(string $email, string $secret, string $verificationCode): ?AccessToken;
 
     /**
-     * Determine if a token record exists and is valid.
-     *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
-     *
-     * @return bool
-     */
-    public function exists(string $email, string $secret, string $verificationCode): bool;
-
-    /**
      * Mark token as used.
      *
      * @param int $recordId

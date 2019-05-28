@@ -132,22 +132,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     }
 
     /**
-     * Determine if a token record exists and is valid.
-     *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
-     *
-     * @return bool
-     */
-    public function exists(string $email, string $secret, string $verificationCode): bool
-    {
-        $record = $this->query($email, $secret, $verificationCode);
-
-        return ! \is_null($record);
-    }
-
-    /**
      * Build the record payload for the table.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
