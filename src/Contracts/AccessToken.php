@@ -2,6 +2,8 @@
 
 namespace RemoteControl\Contracts;
 
+use Illuminate\Contracts\Auth\StatefulGuard;
+
 interface AccessToken
 {
     /**
@@ -28,7 +30,9 @@ interface AccessToken
     /**
      * Authenticate the user.
      *
+     * @param \Illuminate\Contracts\Auth\StatefulGuard $guard
+     *
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */
-    public function authenticateUser();
+    public function authenticate(StatefulGuard $guard);
 }

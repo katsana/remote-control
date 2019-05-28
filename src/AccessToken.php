@@ -4,7 +4,7 @@ namespace RemoteControl;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
 
-class AccessToken implements Contracts\Token
+class AccessToken implements Contracts\AccessToken
 {
     /**
      * The secret passphrase.
@@ -78,7 +78,7 @@ class AccessToken implements Contracts\Token
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */
-    public function authenticateUser(StatefulGuard $guard)
+    public function authenticate(StatefulGuard $guard)
     {
         return $guard->loginUsingId($this->userId, false);
     }

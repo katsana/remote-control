@@ -74,7 +74,7 @@ class Manager implements Contracts\Factory
             return false;
         }
 
-        $accessToken->authenticateUser($this->app['auth']->guard());
+        $accessToken->authenticate($this->app['auth']->guard());
 
         return true;
     }
