@@ -11,11 +11,10 @@ interface TokenRepository
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param string                                     $email
-     * @param string                                     $message
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): AccessToken;
+    public function create(Authenticatable $user, string $email): AccessToken;
 
     /**
      * Query existing record exists and yet to expired.

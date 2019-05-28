@@ -10,7 +10,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class DatabaseTokenRepository implements Contracts\TokenRepository
 {
-    use Concerns\GeneratesTokens;
+    use Concerns\GeneratesAccessTokens;
 
     /**
      * The database connection instance.
@@ -70,11 +70,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param string                                     $email
-     * @param string                                     $message
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): Contracts\AccessToken
+    public function create(Authenticatable $user, string $email): Contracts\AccessToken
     {
         // We will create a new, random token for the user so that we can e-mail them
         // a safe link to the password reset form. Then we will insert a record in
@@ -159,11 +158,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      * @param string $email
      * @param string $secret
      * @param string $verificationCode
-     * @param string $message
      *
      * @return array
      */
-    protected function getPayload(string $email, string $secret, string $verificationCode, string $message): array
+    protected function getPayload(string $email, string $secret, string $verificationCode): array
     {
         return [
             'email' => $email,

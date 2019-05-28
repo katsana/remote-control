@@ -21,9 +21,8 @@ class CreateUserRemoteControlsTable extends Migration
             $table->string('email');
             $table->string('secret');
             $table->string('verification_code');
-            $table->string('message');
 
-            $this->timestamp('created_at')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

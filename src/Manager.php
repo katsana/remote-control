@@ -63,13 +63,11 @@ class Manager implements Contracts\Factory
      */
     public function create(Authenticatable $user, string $email, string $message = ''): Mailable
     {
-        $accessToken = $this->createTokenRepository()->create(
-            $user, $email, $message
-        );
+        $accessToken = $this->createTokenRepository()->create($user, $email);
 
         $mailable = $this->config['mailable'];
 
-        return new $mailable($user, $accessToken);
+        return new $mailable($user, $accessToken, $message);
     }
 
     /**
