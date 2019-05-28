@@ -23,6 +23,7 @@ class AccessTokenTest extends TestCase
     {
         $accessToken = new AccessToken('foo', 'bar', [
             'id' => 2,
+            'email' => 'crynobone@katsana.com',
             'user_id' => 5,
         ]);
 
@@ -30,6 +31,7 @@ class AccessTokenTest extends TestCase
         $this->assertSame('bar', $accessToken->getVerificationCode());
         $this->assertSame(2, $accessToken->getId());
         $this->assertSame(5, $accessToken->getUserId());
+        $this->assertSame('crynobone@katsana.com', $accessToken->getEmail());
         $this->assertInstanceOf('RemoteControl\Contracts\AccessToken', $accessToken);
     }
 

@@ -37,9 +37,9 @@ interface AccessToken
     /**
      * Get recipient e-mail address.
      *
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string;
+    public function getEmail(): ?string;
 
     /**
      * Authenticate the user.

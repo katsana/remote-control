@@ -82,7 +82,7 @@ class AccessToken implements Contracts\AccessToken
      */
     public function getId()
     {
-        return $this->record['id'];
+        return $this->record['id'] ?? null;
     }
 
     /**
@@ -92,17 +92,17 @@ class AccessToken implements Contracts\AccessToken
      */
     public function getUserId()
     {
-        return $this->record['user_id'];
+        return $this->record['user_id'] ?? null;
     }
 
     /**
      * Get recipient e-mail address.
      *
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
-        return $this->record['email'];
+        return $this->record['email'] ?? null;
     }
 
     /**
