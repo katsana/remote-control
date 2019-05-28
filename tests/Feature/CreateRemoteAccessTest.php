@@ -52,6 +52,22 @@ class CreateRemoteAccessTest extends TestCase
 
         $this->assertGuest();
 
+        Remote::authenticate('crynobone@katsana.com', $accessToken->getSecret(), $accessToken->getVerificationCode());
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /** @test */
+    public function it_can_authenticate_remote_access_via_http_request()
+    {
+        Remote::route('test');
+
+        $user = factory(User::class)->create();
+
+        $accessToken = Remote::create($user, 'crynobone@katsana.com');
+
+        $this->assertGuest();
+
         $this->call('GET', $accessToken->getUrl(false))
             ->assertRedirect('/');
 
