@@ -34,7 +34,7 @@ class AccessToken implements Contracts\AccessToken
      * @param string $verificationCode
      * @param array  $record
      */
-    public function __construct(string $secret, string $verificationCode, $record)
+    public function __construct(string $secret, string $verificationCode, array $record)
     {
         $this->secret = $secret;
         $this->verificationCode = $verificationCode;

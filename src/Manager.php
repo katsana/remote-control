@@ -67,7 +67,7 @@ class Manager implements Contracts\Factory
 
         $mailable = $this->config['mailable'];
 
-        return new $mailable($user, $email, $accessToken, $message);
+        return new $mailable($user, $accessToken, $message);
     }
 
     /**
