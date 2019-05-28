@@ -29,6 +29,7 @@ class AccessTokenTest extends TestCase
         $this->assertInstanceOf('RemoteControl\Contracts\AccessToken', $accessToken);
     }
 
+    /** @test */
     public function it_can_authenticate_user()
     {
         $accessToken = new AccessToken('foo', 'bar', 5);
