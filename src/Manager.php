@@ -10,6 +10,13 @@ use Illuminate\Support\Str;
 class Manager implements Contracts\Factory
 {
     /**
+     * Indicates if remote control migrations will be run.
+     *
+     * @var bool
+     */
+    public static $runsMigrations = true;
+
+    /**
      * The application instance.
      *
      * @var \Illuminate\Contracts\Foundation\Application
@@ -33,6 +40,16 @@ class Manager implements Contracts\Factory
     {
         $this->app = $app;
         $this->config = $config;
+    }
+
+    /**
+     * Configure Passport to not register its migrations.
+     *
+     * @return void
+     */
+    public static function ignoreMigrations(): void
+    {
+        static::$runsMigrations = false;
     }
 
     /**

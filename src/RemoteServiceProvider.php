@@ -26,8 +26,28 @@ class RemoteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/remote-control.php' => \config_path('remote-control.php'),
-        ], 'config');
+        if ($this->app->runningInConsole()) {
+            $this->registerMigrations();
+
+            $this->publishes([
+                __DIR__.'/../database/migrations' => \database_path('migrations'),
+            ], 'remote-migrations');
+
+            $this->publishes([
+                __DIR__.'/../config/remote-control.php' => \config_path('remote-control.php'),
+            ], 'config');
+        }
+    }
+
+    /**
+     * Register Passport's migration files.
+     *
+     * @return void
+     */
+    protected function registerMigrations(): void
+    {
+        if (Manager::$runsMigrations) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
     }
 }
