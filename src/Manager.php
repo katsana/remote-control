@@ -38,9 +38,9 @@ class Manager implements Contracts\Factory
     /**
      * Create remote request.
      *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param string                                     $email
+     * @param string                                     $message
      *
      * @return \Illuminate\Contracts\Mail\Mailable
      */

@@ -17,4 +17,16 @@ class RemoteServiceProvider extends ServiceProvider
             return new Manager($app, \config('remote-control'));
         });
     }
+
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/../config/remote-control.php' => \config_path('remote-control.php'),
+        ], 'config');
+    }
 }

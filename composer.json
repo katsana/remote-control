@@ -37,6 +37,13 @@
     "config": {
         "sort-packages": true
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RemoteControl\\RemoteServiceProvider"
+            ]
+        }
+    },
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
