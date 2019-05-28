@@ -170,26 +170,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     }
 
     /**
-     * Get the database connection instance.
-     *
-     * @return \Illuminate\Database\ConnectionInterface
-     */
-    public function getConnection(): ConnectionInterface
-    {
-        return $this->connection;
-    }
-
-    /**
-     * Get the hasher instance.
-     *
-     * @return \Illuminate\Contracts\Hashing\Hasher
-     */
-    public function getHasher(): HasherContract
-    {
-        return $this->hasher;
-    }
-
-    /**
      * Begin a new database query against the table.
      *
      * @return \Illuminate\Database\Query\Builder
