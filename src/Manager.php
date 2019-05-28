@@ -95,18 +95,19 @@ class Manager implements Contracts\Factory
      * Create routes for remote control.
      *
      * @param string $uri
+     * @param array $middleware
      *
      * @return void
      */
-    public function route(string $prefix): void
+    public function route(string $prefix, array $middlewares = ['signed', 'web']): void
     {
         $prefix = rtrim($prefix, '/');
         $router = $this->app['router'];
 
-        $router->prefix($prefix)->group(function (Router $router) {
+        $router->prefix($prefix)->group(function (Router $router) use ($middlewares) {
             $router->get('{secret}', Http\VerifyController::class)
                     ->name('remote-control.verify')
-                    ->middleware('signed');
+                    ->middleware($middlewares);
         });
     }
 
