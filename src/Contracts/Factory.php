@@ -2,8 +2,8 @@
 
 namespace RemoteControl\Contracts;
 
-use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Mail\Mailable;
 
 interface Factory
 {
