@@ -64,15 +64,18 @@ class AccessToken implements Contracts\AccessToken
     /**
      * Get token URL.
      *
+     * @param  \DateTimeInterface|\DateInterval|int  $expiration
+     * @param  bool  $absolute
+     *
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl($expiration = null, bool $absolute = true): string
     {
         return \app('url')->signedRoute('remote-control.verify', [
             'secret' => $this->getSecret(),
             'verification_code' => $this->getVerificationCode(),
             'email' => $this->getEmail(),
-        ]);
+        ], $expiration, $absolute);
     }
 
     /**
