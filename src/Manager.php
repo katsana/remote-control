@@ -58,17 +58,12 @@ class Manager implements Contracts\Factory
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param string                                     $email
-     * @param string                                     $message
      *
-     * @return \Illuminate\Contracts\Mail\Mailable
+     * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): Mailable
+    public function create(Authenticatable $user, string $email): Contracts\AccessToken
     {
-        $accessToken = $this->createTokenRepository()->create($user, $email);
-
-        $mailable = $this->config['mailable'];
-
-        return new $mailable($user, $accessToken, $message);
+        return $this->createTokenRepository()->create($user, $email);
     }
 
     /**
