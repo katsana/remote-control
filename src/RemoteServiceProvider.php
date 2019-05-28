@@ -3,6 +3,7 @@
 namespace RemoteControl;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 
 class RemoteServiceProvider extends ServiceProvider
 {
