@@ -78,7 +78,7 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
         $secret = $this->generateSecret();
         $verificationCode = $this->generateVerificationCode();
 
-        $recordId = $this->getTable()->insertGetId($this->getPayload($email, $secret, $verificationCode));
+        $recordId = $this->getTable()->insertGetId($this->getPayload($user, $email, $secret, $verificationCode));
 
         return new AccessToken($secret, $verificationCode, [
             'id' => $recordId,
@@ -148,9 +148,10 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     /**
      * Build the record payload for the table.
      *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param string                                     $email
+     * @param string                                     $secret
+     * @param string                                     $verificationCode
      *
      * @return array
      */
