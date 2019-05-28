@@ -3,7 +3,7 @@
 
 User {{ $user->getAuthIdentifierName() }} has grant you temporary remote access on {{ config('app.name') }}
 ```
-$content
+{{ $content }}
 ```
 
 @component('mail::button', ['url' => $url])
