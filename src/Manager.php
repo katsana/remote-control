@@ -96,6 +96,20 @@ class Manager implements Contracts\Factory
     }
 
     /**
+     * Create routes for remote control.
+     *
+     * @param string $uri
+     *
+     * @return \Illuminate\Routing\Route
+     */
+    public function route(string $uri)
+    {
+        return $this->app['router']->get($uri, Http\VerifyController::class)
+                    ->name('remote-control.verify')
+                    ->middleware('signed');
+    }
+
+    /**
      * Create a token repository instance based on the given configuration.
      *
      * @return \RemoteControl\Contracts\TokenRepository

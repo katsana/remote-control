@@ -28,4 +28,13 @@ interface Factory
      * @return bool
      */
     public function authenticate(string $email, string $secret, string $verificationCode): bool;
+
+    /**
+     * Create routes for remote control.
+     *
+     * @param string $uri
+     *
+     * @return \Illuminate\Routing\Route
+     */
+    public function route(string $uri);
 }
