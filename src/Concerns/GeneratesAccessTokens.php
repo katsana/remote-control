@@ -4,7 +4,7 @@ namespace RemoteControl\Concerns;
 
 use Illuminate\Support\Str;
 
-trait GeneratesHashes
+trait GeneratesAccessTokens
 {
     /**
      * The hashing key.
@@ -14,11 +14,11 @@ trait GeneratesHashes
     protected $hashKey;
 
     /**
-     * Create a new token for the user.
+     * Create a new secret for the user.
      *
      * @return string
      */
-    public function generateToken(): string
+    public function generateSecret(): string
     {
         return \hash_hmac('sha256', Str::random(40), $this->hashKey);
     }

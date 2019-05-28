@@ -13,20 +13,31 @@ interface TokenRepository
      * @param string                                     $email
      * @param string                                     $message
      *
-     * @return string
+     * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): string;
+    public function create(Authenticatable $user, string $email, string $message = ''): AccessToken;
+
+    /**
+     * Query existing record exists and yet to expired.
+     *
+     * @param string $email
+     * @param string $secret
+     * @param string $verificationCode
+     *
+     * @return \RemoteControl\Contracts\AccessToken|null
+     */
+    public function query(string $email, string $secret, string $verificationCode): ?AccessToken;
 
     /**
      * Determine if a token record exists and is valid.
      *
      * @param string $email
-     * @param string $token
+     * @param string $secret
      * @param string $verificationCode
      *
      * @return bool
      */
-    public function exists(string $email, string $token, string $verificationCode): bool;
+    public function exists(string $email, string $secret, string $verificationCode): bool;
 
     /**
      * Delete a token record.

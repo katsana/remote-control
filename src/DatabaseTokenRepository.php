@@ -10,7 +10,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class DatabaseTokenRepository implements Contracts\TokenRepository
 {
-    use Concerns\GeneratesHashes;
+    use Concerns\GeneratesTokens;
 
     /**
      * The database connection instance.
@@ -72,39 +72,61 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      * @param string                                     $email
      * @param string                                     $message
      *
-     * @return string
+     * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email, string $message = ''): string
+    public function create(Authenticatable $user, string $email, string $message = ''): Contracts\AccessToken
     {
         // We will create a new, random token for the user so that we can e-mail them
         // a safe link to the password reset form. Then we will insert a record in
         // the database so that we can verify the token within the actual reset.
-        $token = $this->generateToken();
+        $secret = $this->generateSecret();
         $verificationCode = $this->generateVerificationCode();
 
-        $this->getTable()->insert($this->getPayload($email, $token, $verificationCode));
+        $this->getTable()->insert($this->getPayload($email, $secret, $verificationCode));
 
-        return $token;
+        return new AccessToken($secret, $verificationCode, $user->getKey());
     }
 
     /**
-     * Determine if a token record exists and is valid.
+     * Query existing record exists and yet to expired.
      *
      * @param string $email
-     * @param string $token
+     * @param string $secret
      * @param string $verificationCode
      *
-     * @return bool
+     * @return \RemoteControl\Contracts\AccessToken|null
      */
-    public function exists(string $email, string $token, string $verificationCode): bool
+    public function query(string $email, string $secret, string $verificationCode): ?Contracts\AccessToken
     {
         $record = $this->getTable()
                         ->where('email', $email)
                         ->where('verification_code', $verificationCode)
                         ->first();
 
-        return ! \is_null($record) && ! $this->tokenExpired($record->created_at)
-                    && $this->hasher->check($token, $record->token);
+        if (! \is_null($record)
+            && ! $this->tokenExpired($record->created_at)
+            && $this->hasher->check($secret, $record->secret)
+        ) {
+            return new AccessToken($secret, $verificationCode, $record->user_id);
+        }
+
+        return null;
+    }
+
+    /**
+     * Determine if a token record exists and is valid.
+     *
+     * @param string $email
+     * @param string $secret
+     * @param string $verificationCode
+     *
+     * @return bool
+     */
+    public function exists(string $email, string $secret, string $verificationCode): bool
+    {
+        $record = $this->queryExisting($email, $secret, $verificationCode);
+
+        return ! \is_null($record);
     }
 
     /**
@@ -135,17 +157,17 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      * Build the record payload for the table.
      *
      * @param string $email
-     * @param string $token
+     * @param string $secret
      * @param string $verificationCode
      * @param string $message
      *
      * @return array
      */
-    protected function getPayload(string $email, string $token, string $verificationCode, string $message): array
+    protected function getPayload(string $email, string $secret, string $verificationCode, string $message): array
     {
         return [
             'email' => $email,
-            'token' => $this->hasher->make($token),
+            'secret' => $this->hasher->make($secret),
             'verification_code' => $verificationCode,
             'created_at' => new Carbon(),
         ];

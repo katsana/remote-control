@@ -17,10 +17,9 @@ class CreateRemoteControlRequestsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_id');
-            $table->string('guard')->nullable();
 
             $table->string('email');
-            $table->string('token');
+            $table->string('secret');
             $table->string('verification_code');
             $table->string('message');
 
