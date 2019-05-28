@@ -81,15 +81,16 @@ class Manager implements Contracts\Factory
      */
     public function authenticate(string $email, string $secret, string $verificationCode): bool
     {
-        $accessToken = $this->createTokenRepository()->query(
-            $email, $secret, $verificationCode
-        );
+        $repository = $this->createTokenRepository();
+
+        $accessToken = $repository->query($email, $secret, $verificationCode);
 
         if (! $accessToken instanceof Contracts\AccessToken) {
             return false;
         }
 
         $accessToken->authenticate($this->app['auth']->guard());
+        $repository->markAsUsed($accessToken->getId());
 
         return true;
     }

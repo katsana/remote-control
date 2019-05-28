@@ -37,4 +37,13 @@ interface TokenRepository
      * @return bool
      */
     public function exists(string $email, string $secret, string $verificationCode): bool;
+
+    /**
+     * Mark token as used.
+     *
+     * @param int $recordId
+     *
+     * @return void
+     */
+    public function markAsUsed($recordId): void;
 }

@@ -21,24 +21,24 @@ class AccessToken implements Contracts\AccessToken
     protected $verificationCode;
 
     /**
-     * The user id.
+     * The record.
      *
-     * @var int|string|null
+     * @var array
      */
-    protected $userId;
+    protected $record;
 
     /**
      * Construct new access token.
      *
-     * @param string          $secret
-     * @param string          $verificationCode
-     * @param int|string|null $userId
+     * @param string $secret
+     * @param string $verificationCode
+     * @param array  $record
      */
-    public function __construct(string $secret, string $verificationCode, $userId)
+    public function __construct(string $secret, string $verificationCode, $record)
     {
         $this->secret = $secret;
         $this->verificationCode = $verificationCode;
-        $this->userId = $userId;
+        $this->record = $record;
     }
 
     /**
@@ -62,13 +62,23 @@ class AccessToken implements Contracts\AccessToken
     }
 
     /**
+     * Get record id.
+     *
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this->record['id'];
+    }
+
+    /**
      * Get user id.
      *
      * @return int|string|null
      */
     public function getUserId()
     {
-        return $this->userId;
+        return $this->record['user_id'];
     }
 
     /**
@@ -80,6 +90,6 @@ class AccessToken implements Contracts\AccessToken
      */
     public function authenticate(StatefulGuard $guard)
     {
-        return $guard->loginUsingId($this->userId, false);
+        return $guard->loginUsingId($this->getUserId(), false);
     }
 }

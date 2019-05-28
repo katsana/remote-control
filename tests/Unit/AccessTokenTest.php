@@ -21,10 +21,14 @@ class AccessTokenTest extends TestCase
     /** @test */
     public function it_can_be_initiated()
     {
-        $accessToken = new AccessToken('foo', 'bar', 5);
+        $accessToken = new AccessToken('foo', 'bar', [
+            'id' => 2,
+            'user_id' => 5,
+        ]);
 
         $this->assertSame('foo', $accessToken->getSecret());
         $this->assertSame('bar', $accessToken->getVerificationCode());
+        $this->assertSame(2, $accessToken->getId());
         $this->assertSame(5, $accessToken->getUserId());
         $this->assertInstanceOf('RemoteControl\Contracts\AccessToken', $accessToken);
     }
@@ -32,7 +36,10 @@ class AccessTokenTest extends TestCase
     /** @test */
     public function it_can_authenticate_user()
     {
-        $accessToken = new AccessToken('foo', 'bar', 5);
+        $accessToken = new AccessToken('foo', 'bar', [
+            'id' => 2,
+            'user_id' => 5,
+        ]);
 
         $user = m::mock(Authenticatable::class);
         $guard = m::mock(StatefulGuard::class);

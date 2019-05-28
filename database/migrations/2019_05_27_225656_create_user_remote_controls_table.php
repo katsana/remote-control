@@ -22,7 +22,7 @@ class CreateUserRemoteControlsTable extends Migration
             $table->string('secret');
             $table->string('verification_code');
 
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
             $table->timestamp('used_at')->nullable();
         });
     }

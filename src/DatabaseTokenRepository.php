@@ -78,9 +78,28 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
         $secret = $this->generateSecret();
         $verificationCode = $this->generateVerificationCode();
 
-        $this->getTable()->insert($this->getPayload($email, $secret, $verificationCode));
+        $recordId = $this->getTable()->insertGetId($this->getPayload($email, $secret, $verificationCode));
 
-        return new AccessToken($secret, $verificationCode, $user->getKey());
+        return new AccessToken($secret, $verificationCode, [
+            'id' => $recordId,
+            'user_id' => $user->getKey(),
+        ]);
+    }
+
+    /**
+     * Mark token as used.
+     *
+     * @param int $recordId
+     *
+     * @return void
+     */
+    public function markAsUsed($recordId): void
+    {
+        $this->getTable()
+                ->where('id', $recordId)
+                ->update([
+                    'used_at' => new Carbon(),
+                ]);
     }
 
     /**
@@ -97,13 +116,14 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
         $record = $this->getTable()
                         ->where('email', $email)
                         ->where('verification_code', $verificationCode)
+                        ->whereNull('used_at')
                         ->first();
 
-        if (! \is_null($record)
-            && ! $this->tokenExpired($record->created_at)
-            && $this->hasher->check($secret, $record->secret)
-        ) {
-            return new AccessToken($secret, $verificationCode, $record->user_id);
+        if (! \is_null($record) && $this->hasher->check($secret, $record->secret)) {
+            return new AccessToken($secret, $verificationCode, [
+                'id' => $record->id,
+                'user_id' => $record->user_id,
+            ]);
         }
 
         return null;
@@ -120,7 +140,7 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      */
     public function exists(string $email, string $secret, string $verificationCode): bool
     {
-        $record = $this->queryExisting($email, $secret, $verificationCode);
+        $record = $this->query($email, $secret, $verificationCode);
 
         return ! \is_null($record);
     }
@@ -142,6 +162,7 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
             'secret' => $this->hasher->make($secret),
             'verification_code' => $verificationCode,
             'created_at' => new Carbon(),
+            'used_at' => null,
         ];
     }
 

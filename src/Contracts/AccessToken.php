@@ -21,6 +21,13 @@ interface AccessToken
     public function getVerificationCode(): string;
 
     /**
+     * Get record id.
+     *
+     * @return int|null
+     */
+    public function getId();
+
+    /**
      * Get user id.
      *
      * @return int|string|null
