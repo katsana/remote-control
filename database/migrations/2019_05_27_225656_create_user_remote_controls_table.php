@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRemoteControlRequestsTable extends Migration
+class CreateUserRemoteControlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRemoteControlRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('remote_control_requests', function (Blueprint $table) {
+        Schema::create('user_remote_controls', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_id');
@@ -34,6 +34,6 @@ class CreateRemoteControlRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('remote_control_requests');
+        Schema::dropIfExists('user_remote_controls');
     }
 }

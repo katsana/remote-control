@@ -2,7 +2,7 @@
 
 namespace RemoteControl;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\StatefulGuard;
 
 class AccessToken implements Contracts\Token
 {
@@ -67,10 +67,12 @@ class AccessToken implements Contracts\Token
     /**
      * Authenticate the user.
      *
+     * @param \Illuminate\Contracts\Auth\StatefulGuard $guard
+     *
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */
-    public function authenticateUser()
+    public function authenticateUser(StatefulGuard $guard)
     {
-        return Auth::loginUsingId($this->userId, false);
+        return $guard->loginUsingId($this->userId, false);
     }
 }

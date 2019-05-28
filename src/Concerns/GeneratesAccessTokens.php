@@ -26,16 +26,15 @@ trait GeneratesAccessTokens
     /**
      * Create a new token for the user.
      *
-     * @param string $characters
      * @param int    $length
+     * @param string $characters
      *
      * @return string
      */
     public function generateVerificationCode(
-        string $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-        int $length = 5
+        int $length = 5,
+        string $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ): string {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $limit = \strlen($characters) - 1;
         $code = [];
 
