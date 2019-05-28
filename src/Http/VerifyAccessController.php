@@ -5,7 +5,7 @@ namespace RemoteControl\Http;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class VerifyController extends Controller
+class VerifyAccessController extends Controller
 {
     /**
      * Verify remote access request.

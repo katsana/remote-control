@@ -104,7 +104,7 @@ class Manager implements Contracts\Factory
         $router = $this->app['router'];
 
         $router->prefix($prefix)->group(function (Router $router) use ($middlewares) {
-            $router->get('{secret}', Http\VerifyController::class)
+            $router->get('{secret}', Http\VerifyAccessController::class)
                     ->name('remote-control.verify')
                     ->middleware($middlewares);
         });
