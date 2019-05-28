@@ -56,4 +56,5 @@ class GrantRemoteAccess extends Mailable
             'url' => $this->accessToken->getUrl(),
             'content' => $this->content,
         ]);
+    }
 }
