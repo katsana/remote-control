@@ -7,13 +7,34 @@ use Illuminate\Support\Facades\Schema;
 class CreateUserRemoteControlsTable extends Migration
 {
     /**
+     * The name of the database table to use.
+     *
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * Construct a new migration.
+     */
+    public function __construct()
+    {
+        $config = \config('remote-control.database', [
+            'table' => 'user_remote_controls',
+            'connection' => null,
+        ]);
+
+        $this->connection = $config['connection'];
+        $this->table = $config['table'];
+    }
+
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('user_remote_controls', function (Blueprint $table) {
+        Schema::create($this->table, function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_id')->nullable()->index();
@@ -34,6 +55,6 @@ class CreateUserRemoteControlsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_remote_controls');
+        Schema::dropIfExists($this->table);
     }
 }
