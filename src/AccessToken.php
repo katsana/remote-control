@@ -2,8 +2,8 @@
 
 namespace RemoteControl;
 
-use Serializable;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Serializable;
 
 class AccessToken implements Contracts\AccessToken, Serializable
 {
