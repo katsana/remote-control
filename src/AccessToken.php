@@ -2,9 +2,10 @@
 
 namespace RemoteControl;
 
+use Serializable;
 use Illuminate\Contracts\Auth\StatefulGuard;
 
-class AccessToken implements Contracts\AccessToken
+class AccessToken implements Contracts\AccessToken, Serializable
 {
     /**
      * The secret passphrase.
@@ -134,5 +135,29 @@ class AccessToken implements Contracts\AccessToken
     public function authenticate(StatefulGuard $guard)
     {
         return $guard->loginUsingId($this->getUserId(), false);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize()
+    {
+        return \serialize([
+            'secret' => $this->secret,
+            'verification_code' => $this->verificationCode,
+            'record' => $this->record,
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unserialize($data)
+    {
+        [
+            'secret' => $this->secret,
+            'verification_code' => $this->verificationCode,
+            'record' => $this->record,
+        ] = \unserialize($data);
     }
 }

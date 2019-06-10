@@ -50,4 +50,42 @@ class AccessTokenTest extends TestCase
 
         $this->assertSame($user, $accessToken->authenticate($guard));
     }
+
+    /** @test */
+    public function it_can_be_serialized()
+    {
+        $accessToken = new AccessToken('foo', 'bar', [
+            'id' => 2,
+            'email' => 'crynobone@katsana.com',
+            'user_id' => 5,
+        ]);
+
+        $serialized = serialize($accessToken);
+
+        $this->assertSame(
+            'C:25:"RemoteControl\AccessToken":155:{a:3:{s:6:"secret";s:3:"foo";s:17:"verification_code";s:3:"bar";s:6:"record";a:3:{s:2:"id";i:2;s:5:"email";s:21:"crynobone@katsana.com";s:7:"user_id";i:5;}}}',
+            $serialized
+        );
+    }
+
+    /** @test */
+    public function it_can_be_unserialized()
+    {
+        $serialized = 'C:25:"RemoteControl\AccessToken":155:{a:3:{s:6:"secret";s:3:"foo";s:17:"verification_code";s:3:"bar";s:6:"record";a:3:{s:2:"id";i:2;s:5:"email";s:21:"crynobone@katsana.com";s:7:"user_id";i:5;}}}';
+
+        $accessToken = new AccessToken('foo', 'bar', [
+            'id' => 2,
+            'email' => 'crynobone@katsana.com',
+            'user_id' => 5,
+        ]);
+
+        $accessToken = unserialize($serialized);
+
+        $this->assertSame('foo', $accessToken->getSecret());
+        $this->assertSame('bar', $accessToken->getVerificationCode());
+        $this->assertSame(2, $accessToken->getId());
+        $this->assertSame(5, $accessToken->getUserId());
+        $this->assertSame('crynobone@katsana.com', $accessToken->getEmail());
+        $this->assertInstanceOf('RemoteControl\Contracts\AccessToken', $accessToken);
+    }
 }
