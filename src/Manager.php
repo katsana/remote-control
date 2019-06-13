@@ -98,15 +98,31 @@ class Manager implements Contracts\Factory
     }
 
     /**
-     * Create routes for remote control.
+     * Register create routes for remote control.
      *
-     * @param string $uri
+     * @param string $prefix
+     * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route
      */
-    public function verifyRoute(string $prefix): Route
+    public function createRoute(string $prefix, ?string $controller = null): Route
     {
-        return $this->app['router']->get('{secret}', Http\VerifyAccessController::class)
+        return $this->app['router']->post('create',  $controller ?? Http\Controllers\CreateAccessController::class)
+                    ->prefix(\rtrim($prefix, '/'))
+                    ->name('remote-control.create');
+    }
+
+    /**
+     * Register verify routes for remote control.
+     *
+     * @param string $prefix
+     * @param string|null $controller
+     *
+     * @return \Illuminate\Routing\Route
+     */
+    public function verifyRoute(string $prefix, ?string $controller = null): Route
+    {
+        return $this->app['router']->get('{secret}', $controller ?? Http\Controllers\VerifyAccessController::class)
                     ->prefix(\rtrim($prefix, '/'))
                     ->name('remote-control.verify');
     }

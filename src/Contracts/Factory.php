@@ -29,11 +29,22 @@ interface Factory
     public function authenticate(string $email, string $secret, string $verificationCode): bool;
 
     /**
-     * Create routes for remote control.
+     * Register create routes for remote control.
      *
      * @param string $prefix
+     * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route
      */
-    public function verifyRoute(string $prefix): Route;
+    public function createRoute(string $prefix, ?string $controller = null): Route;
+
+    /**
+     * Register verify routes for remote control.
+     *
+     * @param string $prefix
+     * @param string|null $controller
+     *
+     * @return \Illuminate\Routing\Route
+     */
+    public function verifyRoute(string $prefix, ?string $controller = null): Route;
 }

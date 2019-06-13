@@ -1,6 +1,6 @@
 <?php
 
-namespace RemoteControl\Http;
+namespace RemoteControl\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -26,7 +26,7 @@ class VerifyAccessController extends Controller
 
         \abort_if(! $remote, 404);
 
-        return $this->sendLoginResponse($request);
+        return $this->sendAuthenticatedResponse($request);
     }
 
     /**
@@ -36,8 +36,8 @@ class VerifyAccessController extends Controller
      *
      * @return mixed
      */
-    protected function sendLoginResponse(Request $request)
+    protected function sendAuthenticatedResponse(Request $request)
     {
-        return \redirect('/');
+        return \redirect($request->query('redirect', '/'));
     }
 }

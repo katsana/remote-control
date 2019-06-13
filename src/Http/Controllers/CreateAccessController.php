@@ -1,0 +1,40 @@
+<?php
+
+namespace RemoteControl\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use RemoteControl\Http\Requests\CreateAccessRequest;
+
+class CreateAccessController extends Controller
+{
+    /**
+     * Verify remote access request.
+     *
+     * @param \RemoteControl\Http\Requests\CreateAccessRequest $request
+     *
+     * @return mixed
+     */
+    public function __invoke(CreateAccessRequest $request)
+    {
+        $input = $request->validated();
+
+        $accessToken = \app('remote-control')->create(
+            $request->user(), $input['email'], $input['content']
+        );
+
+        return $this->sendCreatedResponse($request);
+    }
+
+    /**
+     * Send the response after the access token has been created.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return mixed
+     */
+    protected function sendCreatedResponse(Request $request)
+    {
+        return \redirect($request->query('redirect', '/'));
+    }
+}
