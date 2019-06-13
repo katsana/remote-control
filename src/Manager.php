@@ -43,7 +43,7 @@ class Manager implements Contracts\Factory
     }
 
     /**
-     * Configure Passport to not register its migrations.
+     * Configure Remote Control to not register its migrations.
      *
      * @return void
      */
