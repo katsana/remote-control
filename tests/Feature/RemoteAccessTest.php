@@ -3,7 +3,10 @@
 namespace RemoteControl\Tests\Feature;
 
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
+use RemoteControl\Events\RemoteAccessCreated;
+use RemoteControl\Events\RemoteAccessUsed;
 use RemoteControl\Remote;
 use RemoteControl\Tests\TestCase;
 
@@ -25,6 +28,8 @@ class RemoteAccessTest extends TestCase
     /** @test */
     public function it_can_create_remote_access()
     {
+        Event::fake();
+
         $user = factory(User::class)->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
@@ -37,11 +42,17 @@ class RemoteAccessTest extends TestCase
             'email' => 'crynobone@katsana.com',
             'verification_code' => $accessToken->getVerificationCode(),
         ]);
+
+        Event::assertDispatched(RemoteAccessCreated::class, function ($event) use ($accessToken) {
+            return $event->accessToken === $accessToken;
+        });
     }
 
     /** @test */
     public function it_can_authenticate_remote_access()
     {
+        Event::fake();
+
         Remote::route('test');
 
         $user = factory(User::class)->create();
@@ -53,11 +64,17 @@ class RemoteAccessTest extends TestCase
         Remote::authenticate('crynobone@katsana.com', $accessToken->getSecret(), $accessToken->getVerificationCode());
 
         $this->assertAuthenticatedAs($user);
+
+        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+            return $event->accessToken->getEmail() === $accessToken->getEmail();
+        });
     }
 
     /** @test */
     public function it_can_authenticate_remote_access_via_http_request()
     {
+        Event::fake();
+
         Remote::route('test', ['web']);
 
         $user = factory(User::class)->create();
@@ -69,11 +86,17 @@ class RemoteAccessTest extends TestCase
         $this->call('GET', $accessToken->getUrl(false))->assertRedirect('/');
 
         $this->assertAuthenticatedAs($user);
+
+        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+            return $event->accessToken->getEmail() === $accessToken->getEmail();
+        });
     }
 
     /** @test */
     public function it_can_authenticate_remote_access_via_signed_http_request()
     {
+        Event::fake();
+
         Remote::route('test');
 
         $user = factory(User::class)->create();
@@ -85,5 +108,9 @@ class RemoteAccessTest extends TestCase
         $this->call('GET', $accessToken->getSignedUrl(false))->assertRedirect('/');
 
         $this->assertAuthenticatedAs($user);
+
+        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+            return $event->accessToken->getEmail() === $accessToken->getEmail();
+        });
     }
 }

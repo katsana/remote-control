@@ -86,8 +86,13 @@ class Manager implements Contracts\Factory
             return false;
         }
 
-        $accessToken->authenticate($this->app['auth']->guard());
-        $repository->markAsUsed($accessToken->getId());
+        \tap($accessToken->authenticate($this->app['auth']->guard()), function ($user) use ($repository, $accessToken) {
+            $repository->markAsUsed($accessToken->getId());
+
+            if ($user instanceof Authenticatable) {
+                \event(new Events\RemoteAccessUsed($user, $accessToken));
+            }
+        });
 
         return true;
     }
