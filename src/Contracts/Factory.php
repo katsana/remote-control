@@ -12,10 +12,11 @@ interface Factory
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param string                                     $email
+     * @param string|null                                $message
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email): AccessToken;
+    public function create(Authenticatable $user, string $email, ?string $message = null): AccessToken;
 
     /**
      * Authenticate remote request.
@@ -31,7 +32,7 @@ interface Factory
     /**
      * Register create routes for remote control.
      *
-     * @param string $prefix
+     * @param string      $prefix
      * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route
@@ -41,7 +42,7 @@ interface Factory
     /**
      * Register verify routes for remote control.
      *
-     * @param string $prefix
+     * @param string      $prefix
      * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route

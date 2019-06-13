@@ -57,13 +57,14 @@ class Manager implements Contracts\Factory
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param string                                     $email
+     * @param string|null                                $message
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
-    public function create(Authenticatable $user, string $email): Contracts\AccessToken
+    public function create(Authenticatable $user, string $email, ?string $message = ''): Contracts\AccessToken
     {
-        return \tap($this->createTokenRepository()->create($user, $email), function ($accessToken) use ($user) {
-            \event(new Events\RemoteAccessCreated($user, $accessToken));
+        return \tap($this->createTokenRepository()->create($user, $email), function ($accessToken) use ($user, $message) {
+            \event(new Events\RemoteAccessCreated($user, $accessToken, $message));
         });
     }
 
@@ -100,14 +101,14 @@ class Manager implements Contracts\Factory
     /**
      * Register create routes for remote control.
      *
-     * @param string $prefix
+     * @param string      $prefix
      * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route
      */
     public function createRoute(string $prefix, ?string $controller = null): Route
     {
-        return $this->app['router']->post('create',  $controller ?? Http\Controllers\CreateAccessController::class)
+        return $this->app['router']->post('create', $controller ?? Http\Controllers\CreateAccessController::class)
                     ->prefix(\rtrim($prefix, '/'))
                     ->name('remote-control.create');
     }
@@ -115,7 +116,7 @@ class Manager implements Contracts\Factory
     /**
      * Register verify routes for remote control.
      *
-     * @param string $prefix
+     * @param string      $prefix
      * @param string|null $controller
      *
      * @return \Illuminate\Routing\Route

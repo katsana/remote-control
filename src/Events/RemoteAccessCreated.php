@@ -27,14 +27,23 @@ class RemoteAccessCreated
     public $accessToken;
 
     /**
+     * The message.
+     *
+     * @var string|null
+     */
+    public $message;
+
+    /**
      * Requesting remote access event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @param \RemoteControl\Contracts\AccessToken       $accessToken
+     * @param string|null                                $message
      */
-    public function __construct(Authenticatable $user, AccessToken $accessToken)
+    public function __construct(Authenticatable $user, AccessToken $accessToken, ?string $message)
     {
         $this->user = $user;
         $this->accessToken = $accessToken;
+        $this->message = $message;
     }
 }
