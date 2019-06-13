@@ -19,8 +19,8 @@ class CreateAccessController extends Controller
     {
         $input = $request->validated();
 
-        $accessToken = \app('remote-control')->create(
-            $request->user(), $input['email'], $input['content']
+        \app('remote-control')->create(
+            $request->user(), $input['email'], $input['content'] ?? null
         );
 
         return $this->sendCreatedResponse($request);

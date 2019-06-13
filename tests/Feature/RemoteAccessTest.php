@@ -49,6 +49,31 @@ class RemoteAccessTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_remote_access_via_http()
+    {
+        Event::fake();
+
+        Remote::createRoute('test')->middleware(['web']);
+
+        $user = factory(User::class)->create();
+
+        $this->be($user);
+
+        $this->call('POST', 'test/create', [
+            'email' => 'crynobone@katsana.com',
+        ])->assertRedirect('/');
+
+        $this->assertDatabaseHas('user_remote_controls', [
+            'user_id' => $user->getKey(),
+            'email' => 'crynobone@katsana.com',
+        ]);
+
+        Event::assertDispatched(RemoteAccessCreated::class, function ($event) {
+            return $event->accessToken->getEmail() === 'crynobone@katsana.com';
+        });
+    }
+
+    /** @test */
     public function it_can_authenticate_remote_access()
     {
         Event::fake();
@@ -97,7 +122,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        Remote::verifyRoute('test');
+        Remote::verifyRoute('test')->middleware(['signed', 'web']);
 
         $user = factory(User::class)->create();
 

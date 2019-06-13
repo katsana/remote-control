@@ -7,6 +7,9 @@ use RemoteControl\Tests\TestCase;
 
 class ManagerTest extends TestCase
 {
+    /**
+     * Teardown the test environment.
+     */
     protected function tearDown(): void
     {
         Manager::$runsMigrations = true;
