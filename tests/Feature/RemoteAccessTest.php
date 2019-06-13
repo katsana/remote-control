@@ -2,12 +2,10 @@
 
 namespace RemoteControl\Tests\Feature;
 
-use Mockery as m;
+use Illuminate\Foundation\Auth\User;
+use Orchestra\Testbench\Concerns\WithLaravelMigrations;
 use RemoteControl\Remote;
 use RemoteControl\Tests\TestCase;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Orchestra\Testbench\Concerns\WithLaravelMigrations;
 
 class RemoteAccessTest extends TestCase
 {

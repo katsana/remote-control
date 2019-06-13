@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
 |
 */
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
+
 $factory->define(Illuminate\Foundation\Auth\User::class, function (Faker\Generator $faker) {
     static $password;
 

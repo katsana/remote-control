@@ -3,7 +3,6 @@
 namespace RemoteControl\Tests\Feature;
 
 use RemoteControl\Tests\TestCase;
-use RemoteControl\RemoteServiceProvider;
 
 class RemoteServiceProviderTest extends TestCase
 {
@@ -20,6 +19,7 @@ class RemoteServiceProviderTest extends TestCase
             'remote-control' => [],
         ]);
     }
+
     /** @test */
     public function it_register_the_services()
     {

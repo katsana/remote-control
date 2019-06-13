@@ -2,12 +2,12 @@
 
 namespace RemoteControl\Tests\Feature;
 
-use RemoteControl\Remote;
-use RemoteControl\Tests\TestCase;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
-use RemoteControl\Mail\GrantRemoteAccess;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
+use RemoteControl\Mail\GrantRemoteAccess;
+use RemoteControl\Remote;
+use RemoteControl\Tests\TestCase;
 
 class SendNotificationTest extends TestCase
 {

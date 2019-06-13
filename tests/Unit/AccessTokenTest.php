@@ -2,11 +2,11 @@
 
 namespace RemoteControl\Tests\Unit;
 
-use Mockery as m;
-use RemoteControl\AccessToken;
-use PHPUnit\Framework\TestCase;
-use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
+use RemoteControl\AccessToken;
 
 class AccessTokenTest extends TestCase
 {
