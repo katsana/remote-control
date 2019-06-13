@@ -78,8 +78,6 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        Remote::verifyRoute('test');
-
         $user = factory(User::class)->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
