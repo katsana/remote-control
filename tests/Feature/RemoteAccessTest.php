@@ -5,8 +5,8 @@ namespace RemoteControl\Tests\Feature;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
-use RemoteControl\Events\RemoteAccessCreated;
-use RemoteControl\Events\RemoteAccessUsed;
+use RemoteControl\Events\AccessTokenCreated;
+use RemoteControl\Events\AccessTokenUsed;
 use RemoteControl\Remote;
 use RemoteControl\Tests\TestCase;
 
@@ -43,7 +43,7 @@ class RemoteAccessTest extends TestCase
             'verification_code' => $accessToken->getVerificationCode(),
         ]);
 
-        Event::assertDispatched(RemoteAccessCreated::class, function ($event) use ($accessToken) {
+        Event::assertDispatched(AccessTokenCreated::class, function ($event) use ($accessToken) {
             return $event->accessToken === $accessToken;
         });
     }
@@ -68,7 +68,7 @@ class RemoteAccessTest extends TestCase
             'email' => 'crynobone@katsana.com',
         ]);
 
-        Event::assertDispatched(RemoteAccessCreated::class, function ($event) {
+        Event::assertDispatched(AccessTokenCreated::class, function ($event) {
             return $event->accessToken->getEmail() === 'crynobone@katsana.com';
         });
     }
@@ -88,7 +88,7 @@ class RemoteAccessTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+        Event::assertDispatched(AccessTokenUsed::class, function ($event) use ($accessToken) {
             return $event->accessToken->getEmail() === $accessToken->getEmail();
         });
     }
@@ -110,7 +110,7 @@ class RemoteAccessTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+        Event::assertDispatched(AccessTokenUsed::class, function ($event) use ($accessToken) {
             return $event->accessToken->getEmail() === $accessToken->getEmail();
         });
     }
@@ -132,7 +132,7 @@ class RemoteAccessTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        Event::assertDispatched(RemoteAccessUsed::class, function ($event) use ($accessToken) {
+        Event::assertDispatched(AccessTokenUsed::class, function ($event) use ($accessToken) {
             return $event->accessToken->getEmail() === $accessToken->getEmail();
         });
     }

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use RemoteControl\Contracts\AccessToken;
 
-class RemoteAccessUsed
+class AccessTokenUsed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

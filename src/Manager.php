@@ -64,7 +64,7 @@ class Manager implements Contracts\Factory
     public function create(Authenticatable $user, string $email, ?string $message = ''): Contracts\AccessToken
     {
         return \tap($this->createTokenRepository()->create($user, $email), function ($accessToken) use ($user, $message) {
-            \event(new Events\RemoteAccessCreated($user, $accessToken, $message));
+            \event(new Events\AccessTokenCreated($user, $accessToken, $message));
         });
     }
 
@@ -91,7 +91,7 @@ class Manager implements Contracts\Factory
             $repository->markAsUsed($accessToken->getId());
 
             if ($user instanceof Authenticatable) {
-                \event(new Events\RemoteAccessUsed($user, $accessToken));
+                \event(new Events\AccessTokenUsed($user, $accessToken));
             }
         });
 
