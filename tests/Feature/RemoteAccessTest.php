@@ -53,7 +53,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        Remote::route('test');
+        Remote::verifyRoute('test');
 
         $user = factory(User::class)->create();
 
@@ -75,7 +75,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        Remote::route('test', ['web']);
+        Remote::verifyRoute('test')->middleware(['web']);
 
         $user = factory(User::class)->create();
 
@@ -97,7 +97,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        Remote::route('test');
+        Remote::verifyRoute('test');
 
         $user = factory(User::class)->create();
 

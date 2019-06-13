@@ -4,7 +4,7 @@ namespace RemoteControl;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Routing\Router;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Str;
 
 class Manager implements Contracts\Factory
@@ -101,20 +101,14 @@ class Manager implements Contracts\Factory
      * Create routes for remote control.
      *
      * @param string $uri
-     * @param array  $middleware
      *
-     * @return void
+     * @return \Illuminate\Routing\Route
      */
-    public function route(string $prefix, array $middlewares = ['signed', 'web']): void
+    public function verifyRoute(string $prefix): Route
     {
-        $prefix = \rtrim($prefix, '/');
-        $router = $this->app['router'];
-
-        $router->prefix($prefix)->group(function (Router $router) use ($middlewares) {
-            $router->get('{secret}', Http\VerifyAccessController::class)
-                    ->name('remote-control.verify')
-                    ->middleware($middlewares);
-        });
+        return $this->app['router']->get('{secret}', Http\VerifyAccessController::class)
+                    ->prefix(\rtrim($prefix, '/'))
+                    ->name('remote-control.verify');
     }
 
     /**

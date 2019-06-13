@@ -3,6 +3,7 @@
 namespace RemoteControl\Contracts;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Routing\Route;
 
 interface Factory
 {
@@ -32,7 +33,7 @@ interface Factory
      *
      * @param string $prefix
      *
-     * @return void
+     * @return \Illuminate\Routing\Route
      */
-    public function route(string $prefix): void;
+    public function verifyRoute(string $prefix): Route;
 }

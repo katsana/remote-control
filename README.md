@@ -10,6 +10,9 @@ Grant remote access to user account without sharing credentials.
 [![License](https://poser.pugx.org/katsana/remote-control/license)](https://packagist.org/packages/katsana/remote-control)
 [![Coverage Status](https://coveralls.io/repos/github/katsana/remote-control/badge.svg?branch=master)](https://coveralls.io/github/katsana/remote-control?branch=master)
 
+* [Installation](#installation)
+    - [Configuration](#configuration)
+
 ## Installation
 
 Remote Control can be installed via composer:
