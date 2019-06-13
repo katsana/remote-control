@@ -2,6 +2,7 @@
 
 namespace RemoteControl\Events;
 
+use RemoteControl\Contracts\AccessToken;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class RemoteAccessCreated
@@ -14,21 +15,21 @@ class RemoteAccessCreated
     public $user;
 
     /**
-     * The recipient e-mail adddress.
+     * The access token.
      *
-     * @var string
+     * @var \RemoteControl\Contracts\AccessToken
      */
-    public $email;
+    public $accessToken;
 
     /**
      * Requesting remote access event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param string                                     $email
+     * @param \RemoteControl\Contracts\AccessToken $accessToken
      */
-    public function __construct(Authenticatable $user, string $email)
+    public function __construct(Authenticatable $user, AccessToken $accessToken)
     {
         $this->user = $user;
-        $this->email = $email;
+        $this->accessToken = $accessToken;
     }
 }

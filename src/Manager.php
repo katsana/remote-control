@@ -62,11 +62,9 @@ class Manager implements Contracts\Factory
      */
     public function create(Authenticatable $user, string $email): Contracts\AccessToken
     {
-        $accessToken = $this->createTokenRepository()->create($user, $email);
-
-        \event(new Events\RemoteAccessCreated($user, $email));
-
-        return $accessToken;
+        return \tap($this->createTokenRepository()->create($user, $email), function ($accessToken) use ($user) {
+            \event(new Events\RemoteAccessCreated($user, $accessToken));
+        });
     }
 
     /**
