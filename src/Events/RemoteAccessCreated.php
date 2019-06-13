@@ -2,8 +2,8 @@
 
 namespace RemoteControl\Events;
 
-use RemoteControl\Contracts\AccessToken;
 use Illuminate\Contracts\Auth\Authenticatable;
+use RemoteControl\Contracts\AccessToken;
 
 class RemoteAccessCreated
 {
@@ -25,7 +25,7 @@ class RemoteAccessCreated
      * Requesting remote access event.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param \RemoteControl\Contracts\AccessToken $accessToken
+     * @param \RemoteControl\Contracts\AccessToken       $accessToken
      */
     public function __construct(Authenticatable $user, AccessToken $accessToken)
     {

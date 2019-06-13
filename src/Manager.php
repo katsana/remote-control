@@ -102,7 +102,7 @@ class Manager implements Contracts\Factory
      */
     public function route(string $prefix, array $middlewares = ['signed', 'web']): void
     {
-        $prefix = rtrim($prefix, '/');
+        $prefix = \rtrim($prefix, '/');
         $router = $this->app['router'];
 
         $router->prefix($prefix)->group(function (Router $router) use ($middlewares) {
