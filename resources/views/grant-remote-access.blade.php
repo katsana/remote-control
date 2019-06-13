@@ -1,7 +1,7 @@
 @component('mail::message')
 # Remote Access
 
-User {{ $user->getAuthIdentifierName() }} has grant you temporary remote access on {{ config('app.name') }}
+User {{ $user->getAuthIdentifier() }} has grant you temporary remote access on {{ \config('app.name') }}
 ```
 {{ $content }}
 ```
@@ -11,5 +11,5 @@ Login
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ \config('app.name') }}
 @endcomponent
