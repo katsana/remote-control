@@ -15,6 +15,7 @@ Grant remote access to user account without sharing credentials.
 * [Usages](#usages)
     - [Routing](#routing)
     - [Creating Remote Access](#creating-remote-access)
+    - [Using Generated Access Token](#using-generated-access-token)
 
 ## Installation
 
@@ -34,9 +35,9 @@ Next, you need to publish the Remote Control configuration file:
 php artisan vendor:publish --provider="RemoteControl\RemoteServiceProvider" --tag="config"
 ```
 
-### Usages
+## Usages
 
-#### Routing
+### Routing
 
 Before creating any remote access, we need to declare verification route:
 
@@ -50,7 +51,7 @@ To use signed URL you should include `signed` middleware:
 RemoteControl\Remote::verifyRoute('remote-control')->middleware(['signed', 'web']);
 ```
 
-#### Creating Remote Access
+### Creating Remote Access
 
 You can create a remote access by running the following code:
 
@@ -62,6 +63,8 @@ $content = 'Please help me';
 
 $accessToken = RemoteControl\Remote::create($user, $recipientEmail, $content);
 ```
+
+### Using Generated Access Token
 
 You can get the URL using the following method:
 
