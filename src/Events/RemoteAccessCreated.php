@@ -2,11 +2,16 @@
 
 namespace RemoteControl\Events;
 
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 use RemoteControl\Contracts\AccessToken;
 
 class RemoteAccessCreated
 {
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
     /**
      * The user.
      *
