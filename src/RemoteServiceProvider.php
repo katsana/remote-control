@@ -14,7 +14,7 @@ class RemoteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('remote-control', function (Application $app) {
+        $this->app->singleton('remote-control', static function (Application $app) {
             return new Manager($app, \config('remote-control'));
         });
     }

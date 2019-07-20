@@ -63,7 +63,7 @@ class Manager implements Contracts\Factory
      */
     public function create(Authenticatable $user, string $email, ?string $message = ''): Contracts\AccessToken
     {
-        return \tap($this->createTokenRepository()->create($user, $email), function ($accessToken) use ($user, $message) {
+        return \tap($this->createTokenRepository()->create($user, $email), static function ($accessToken) use ($user, $message) {
             \event(new Events\AccessTokenCreated($user, $accessToken, $message));
         });
     }
@@ -87,7 +87,7 @@ class Manager implements Contracts\Factory
             return false;
         }
 
-        \tap($accessToken->authenticate($this->app['auth']->guard()), function ($user) use ($repository, $accessToken) {
+        \tap($accessToken->authenticate($this->app['auth']->guard()), static function ($user) use ($repository, $accessToken) {
             $repository->markAsUsed($accessToken->getId());
 
             if ($user instanceof Authenticatable) {
