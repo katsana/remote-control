@@ -25,13 +25,13 @@
         }
     },
     "require": {
-        "illuminate/database": "~5.8",
-        "illuminate/mail": "~5.8",
-        "illuminate/support": "~5.8"
+        "illuminate/database": "^5.8 || ^6.0",
+        "illuminate/mail": "^5.8 || ^6.0",
+        "illuminate/support": "^5.8 || ^6.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.2",
-        "orchestra/testbench": "~3.8"
+        "orchestra/testbench": "^3.8 || ^4.0"
     },
     "scripts": {
         "test": [
