@@ -2,7 +2,7 @@
 
 namespace RemoteControl;
 
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
 class RemoteServiceProvider extends ServiceProvider
@@ -14,7 +14,7 @@ class RemoteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('remote-control', static function (Application $app) {
+        $this->app->singleton('remote-control', static function (Container $app) {
             return new Manager($app, \config('remote-control'));
         });
     }
