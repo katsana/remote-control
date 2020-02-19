@@ -48,8 +48,6 @@ class RemoteServiceProvider extends ServiceProvider
 
     /**
      * Register Passport's migration files.
-     *
-     * @return void
      */
     protected function registerMigrations(): void
     {

@@ -31,10 +31,6 @@ class GrantRemoteAccess extends Mailable
 
     /**
      * Construct a new mailable to grant remote access.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param \RemoteControl\Contracts\AccessToken       $accessToken
-     * @param string                                     $content
      */
     public function __construct(Authenticatable $user, AccessToken $accessToken, string $content = '')
     {

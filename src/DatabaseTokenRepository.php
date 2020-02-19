@@ -43,11 +43,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
     /**
      * Create a new token repository instance.
      *
-     * @param \Illuminate\Database\ConnectionInterface $connection
-     * @param \Illuminate\Contracts\Hashing\Hasher     $hasher
-     * @param string                                   $table
-     * @param string                                   $hashKey
-     *
      * @return void
      */
     public function __construct(
@@ -64,9 +59,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
 
     /**
      * Create a new token.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param string                                     $email
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
@@ -91,8 +83,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
      * Mark token as used.
      *
      * @param int $recordId
-     *
-     * @return void
      */
     public function markAsUsed($recordId): void
     {
@@ -105,10 +95,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
 
     /**
      * Query existing record exists and yet to expired.
-     *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
      *
      * @return \RemoteControl\Contracts\AccessToken|null
      */
@@ -133,13 +119,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
 
     /**
      * Build the record payload for the table.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param string                                     $email
-     * @param string                                     $secret
-     * @param string                                     $verificationCode
-     *
-     * @return array
      */
     protected function getPayload(Authenticatable $user, string $email, string $secret, string $verificationCode): array
     {
@@ -155,8 +134,6 @@ class DatabaseTokenRepository implements Contracts\TokenRepository
 
     /**
      * Begin a new database query against the table.
-     *
-     * @return \Illuminate\Database\Query\Builder
      */
     protected function getTable(): QueryBuilder
     {

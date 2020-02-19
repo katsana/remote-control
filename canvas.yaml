@@ -1,0 +1,27 @@
+preset: package
+
+namespace: RemoteControl
+user-auth-provider: App\User
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: RemoteControl\Console
+
+model:
+  namespace: RemoteControl
+
+provider:
+  namespace: RemoteControl
+
+testing:
+  namespace: RemoteControl\Tests

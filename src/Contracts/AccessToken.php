@@ -8,15 +8,11 @@ interface AccessToken
 {
     /**
      * Get secret passphrase.
-     *
-     * @return string
      */
     public function getSecret(): string;
 
     /**
      * Get verification code.
-     *
-     * @return string
      */
     public function getVerificationCode(): string;
 
@@ -36,15 +32,11 @@ interface AccessToken
 
     /**
      * Get recipient e-mail address.
-     *
-     * @return string|null
      */
     public function getEmail(): ?string;
 
     /**
      * Authenticate the user.
-     *
-     * @param \Illuminate\Contracts\Auth\StatefulGuard $guard
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */
@@ -52,10 +44,6 @@ interface AccessToken
 
     /**
      * Get URL.
-     *
-     * @param bool $absolute
-     *
-     * @return string
      */
     public function getUrl(bool $absolute = true): string;
 
@@ -63,9 +51,6 @@ interface AccessToken
      * Get signed URL.
      *
      * @param \DateTimeInterface|\DateInterval|int $expiration
-     * @param bool                                 $absolute
-     *
-     * @return string
      */
     public function getSignedUrl($expiration = null, bool $absolute = true): string;
 }

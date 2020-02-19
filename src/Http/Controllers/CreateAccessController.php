@@ -11,8 +11,6 @@ class CreateAccessController extends Controller
     /**
      * Verify remote access request.
      *
-     * @param \RemoteControl\Http\Requests\CreateAccessRequest $request
-     *
      * @return mixed
      */
     public function __invoke(CreateAccessRequest $request)
@@ -28,8 +26,6 @@ class CreateAccessController extends Controller
 
     /**
      * Send the response after the access token has been created.
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return mixed
      */

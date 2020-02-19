@@ -11,8 +11,6 @@ class SendInvitationEmail
     /**
      * Handle the event.
      *
-     * @param \RemoteControl\Events\AccessTokenCreated $event
-     *
      * @return void
      */
     public function handle(AccessTokenCreated $event)
