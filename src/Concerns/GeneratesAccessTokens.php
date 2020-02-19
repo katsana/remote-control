@@ -15,8 +15,6 @@ trait GeneratesAccessTokens
 
     /**
      * Create a new secret for the user.
-     *
-     * @return string
      */
     public function generateSecret(): string
     {
@@ -25,11 +23,6 @@ trait GeneratesAccessTokens
 
     /**
      * Create a new token for the user.
-     *
-     * @param int    $length
-     * @param string $characters
-     *
-     * @return string
      */
     public function generateVerificationCode(
         int $length = 5,

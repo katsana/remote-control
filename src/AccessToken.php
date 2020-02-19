@@ -30,10 +30,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Construct new access token.
-     *
-     * @param string $secret
-     * @param string $verificationCode
-     * @param array  $record
      */
     public function __construct(string $secret, string $verificationCode, array $record)
     {
@@ -44,8 +40,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Get secret passphrase.
-     *
-     * @return string
      */
     public function getSecret(): string
     {
@@ -54,8 +48,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Get verification code.
-     *
-     * @return string
      */
     public function getVerificationCode(): string
     {
@@ -64,10 +56,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Get URL.
-     *
-     * @param bool $absolute
-     *
-     * @return string
      */
     public function getUrl(bool $absolute = true): string
     {
@@ -82,9 +70,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
      * Get signed URL.
      *
      * @param \DateTimeInterface|\DateInterval|int $expiration
-     * @param bool                                 $absolute
-     *
-     * @return string
      */
     public function getSignedUrl($expiration = null, bool $absolute = true): string
     {
@@ -117,8 +102,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Get recipient e-mail address.
-     *
-     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -127,8 +110,6 @@ class AccessToken implements Contracts\AccessToken, Serializable
 
     /**
      * Authenticate the user.
-     *
-     * @param \Illuminate\Contracts\Auth\StatefulGuard $guard
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|false
      */

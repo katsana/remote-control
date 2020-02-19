@@ -28,9 +28,6 @@ class AccessTokenUsed
 
     /**
      * Requesting remote access event.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param \RemoteControl\Contracts\AccessToken       $accessToken
      */
     public function __construct(Authenticatable $user, AccessToken $accessToken)
     {

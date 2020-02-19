@@ -10,8 +10,7 @@ class VerifyAccessController extends Controller
     /**
      * Verify remote access request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $secret
+     * @param string $secret
      *
      * @return mixed
      */
@@ -31,8 +30,6 @@ class VerifyAccessController extends Controller
 
     /**
      * Send the response after the user was authenticated.
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return mixed
      */

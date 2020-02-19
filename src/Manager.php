@@ -32,9 +32,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Construct a new remote control manager.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param array                                        $config
      */
     public function __construct(Application $app, array $config)
     {
@@ -44,8 +41,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Configure Remote Control to not register its migrations.
-     *
-     * @return void
      */
     public static function ignoreMigrations(): void
     {
@@ -54,10 +49,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Create remote request.
-     *
-     * @param \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param string                                     $email
-     * @param string|null                                $message
      *
      * @return \RemoteControl\Contracts\AccessToken
      */
@@ -70,12 +61,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Authenticate remote request.
-     *
-     * @param string $email
-     * @param string $secret
-     * @param string $verificationCode
-     *
-     * @return bool
      */
     public function authenticate(string $email, string $secret, string $verificationCode): bool
     {
@@ -100,11 +85,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Register create routes for remote control.
-     *
-     * @param string      $prefix
-     * @param string|null $controller
-     *
-     * @return \Illuminate\Routing\Route
      */
     public function createRoute(string $prefix, ?string $controller = null): Route
     {
@@ -115,11 +95,6 @@ class Manager implements Contracts\Factory
 
     /**
      * Register verify routes for remote control.
-     *
-     * @param string      $prefix
-     * @param string|null $controller
-     *
-     * @return \Illuminate\Routing\Route
      */
     public function verifyRoute(string $prefix, ?string $controller = null): Route
     {
