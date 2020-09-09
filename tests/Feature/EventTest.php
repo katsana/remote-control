@@ -2,10 +2,10 @@
 
 namespace RemoteControl\Tests\Feature;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
+use Orchestra\Testbench\Factories\UserFactory;
 use RemoteControl\Events\AccessTokenCreated;
 use RemoteControl\Listeners\SendInvitationEmail;
 use RemoteControl\Mail\GrantRemoteAccess;
@@ -33,7 +33,7 @@ class EventTest extends TestCase
         Mail::fake();
         Event::listen(AccessTokenCreated::class, SendInvitationEmail::class);
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 

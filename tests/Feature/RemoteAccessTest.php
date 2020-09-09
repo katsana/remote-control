@@ -2,9 +2,9 @@
 
 namespace RemoteControl\Tests\Feature;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
+use Orchestra\Testbench\Factories\UserFactory;
 use RemoteControl\Events\AccessTokenCreated;
 use RemoteControl\Events\AccessTokenUsed;
 use RemoteControl\Remote;
@@ -30,7 +30,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 
@@ -55,7 +55,7 @@ class RemoteAccessTest extends TestCase
 
         Remote::createRoute('test')->middleware(['web']);
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $this->be($user);
 
@@ -78,7 +78,7 @@ class RemoteAccessTest extends TestCase
     {
         Event::fake();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 
@@ -100,7 +100,7 @@ class RemoteAccessTest extends TestCase
 
         Remote::verifyRoute('test')->middleware(['web']);
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 
@@ -122,7 +122,7 @@ class RemoteAccessTest extends TestCase
 
         Remote::verifyRoute('test')->middleware(['signed', 'web']);
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 

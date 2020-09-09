@@ -2,9 +2,9 @@
 
 namespace RemoteControl\Tests\Feature;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
 use Orchestra\Testbench\Concerns\WithLaravelMigrations;
+use Orchestra\Testbench\Factories\UserFactory;
 use RemoteControl\Mail\GrantRemoteAccess;
 use RemoteControl\Remote;
 use RemoteControl\Tests\TestCase;
@@ -29,7 +29,7 @@ class SendNotificationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->create();
 
         $accessToken = Remote::create($user, 'crynobone@katsana.com');
 
