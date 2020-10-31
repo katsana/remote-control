@@ -25,6 +25,7 @@ jobs:
         laravel:
           - "6.x"
           - "7.x"
+          - "8.x"
         experimental:
           - false
 
