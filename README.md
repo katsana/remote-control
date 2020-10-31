@@ -3,7 +3,7 @@ Remote Control for Laravel
 
 Grant remote access to user account without sharing credentials.
 
-[![Build Status](https://travis-ci.org/katsana/remote-control.svg?branch=master)](https://travis-ci.org/katsana/remote-control)
+[![tests](https://github.com/katsana/remote-control/workflows/tests/badge.svg?branch=1.x)](https://github.com/katsana/remote-control/actions?query=branch%3A1.x+workflow%3Atests)
 [![Latest Stable Version](https://poser.pugx.org/katsana/remote-control/v/stable)](https://packagist.org/packages/katsana/remote-control)
 [![Total Downloads](https://poser.pugx.org/katsana/remote-control/downloads)](https://packagist.org/packages/katsana/remote-control)
 [![Latest Unstable Version](https://poser.pugx.org/katsana/remote-control/v/unstable)](https://packagist.org/packages/katsana/remote-control)
