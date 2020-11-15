@@ -18,6 +18,7 @@ jobs:
         php:
           - "7.3"
           - "7.4"
+          - "8.0"
         dependencies:
           - "locked"
           - "lowest"
@@ -45,7 +46,11 @@ jobs:
       - name: Install Laravel Framework ${{ matrix.laravel }}
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+
       - name: Install dependencies
         uses: "ramsey/composer-install@v1"
+        with:
+          composer-options: "--prefer-dist --no-cache"
+
       - name: Execute tests
         run: vendor/bin/phpunit
