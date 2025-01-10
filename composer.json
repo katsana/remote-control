@@ -1,55 +1,55 @@
 {
-    "name": "katsana/remote-control",
-    "description": "Grant remote access to user account without sharing credentials",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "KATSANA Developer",
-            "email": "developer@katsana.com"
-        },
-        {
-            "name": "Mior Muhammad Zaki",
-            "email": "crynobone@katsana.com",
-            "role": "Developer"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "RemoteControl\\": "src/"
-        }
+  "name": "katsana/remote-control",
+  "description": "Grant remote access to user account without sharing credentials",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "KATSANA Developer",
+      "email": "developer@katsana.com"
     },
-    "autoload-dev": {
-        "psr-4": {
-            "RemoteControl\\Tests\\": "tests/"
-        }
-    },
-    "require": {
-        "php": ">=7.3",
-        "illuminate/database": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/mail": "^6.0 || ^7.0 || ^8.0",
-        "illuminate/support": "^6.0 || ^7.0 || ^8.0"
-    },
-    "require-dev": {
-        "laravel/legacy-factories": "^1.0.4",
-        "mockery/mockery": "^1.3.1",
-        "orchestra/canvas": "^4.5 || ^5.0 || ^6.0",
-        "orchestra/testbench": "^4.5 || ^5.0 || ^6.0"
-    },
-    "scripts": {
-        "test": [
-            "./vendor/bin/phpunit -c ."
-        ]
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "RemoteControl\\RemoteServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "dev"
+    {
+      "name": "Mior Muhammad Zaki",
+      "email": "crynobone@katsana.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RemoteControl\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RemoteControl\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.3",
+    "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+    "illuminate/mail": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+    "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0"
+  },
+  "require-dev": {
+    "laravel/legacy-factories": "^1.0.4",
+    "mockery/mockery": "^1.3.1",
+    "orchestra/canvas": "^4.5 || ^5.0 || ^6.0 || ^7.0",
+    "orchestra/testbench": "^4.5 || ^5.0 || ^6.0 || ^7.0"
+  },
+  "scripts": {
+    "test": [
+      "./vendor/bin/phpunit -c ."
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RemoteControl\\RemoteServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
 }

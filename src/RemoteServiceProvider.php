@@ -33,16 +33,22 @@ class RemoteServiceProvider extends ServiceProvider
             $this->registerMigrations();
 
             $this->publishes([
-                __DIR__.'/../database/migrations' => \database_path('migrations'),
-            ], 'remote-control:migrations');
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+                __DIR__.'/../resources/views' => resource_path('views/vendor/remote-control'),
+                __DIR__.'/../config/remote-control.php' => config_path('remote-control.php'),
+            ], 'remote-control');
 
             $this->publishes([
-                __DIR__.'/../resources/views' => \resource_path('views/vendor/remote-control'),
-            ], 'remote-control:views');
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+            ], 'remote-control-migrations');
 
             $this->publishes([
-                __DIR__.'/../config/remote-control.php' => \config_path('remote-control.php'),
-            ], 'config');
+                __DIR__.'/../resources/views' => resource_path('views/vendor/remote-control'),
+            ], 'remote-control-views');
+
+            $this->publishes([
+                __DIR__.'/../config/remote-control.php' => config_path('remote-control.php'),
+            ], 'remote-control-config');
         }
     }
 
@@ -52,7 +58,7 @@ class RemoteServiceProvider extends ServiceProvider
     protected function registerMigrations(): void
     {
         if (Manager::$runsMigrations) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 }
